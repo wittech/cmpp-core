@@ -1,24 +1,7 @@
 package com.zx.sms.handler.api.gate;
 
-import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.Callable;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import org.apache.commons.lang.math.RandomUtils;
-import org.apache.commons.lang.time.DateFormatUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.zx.sms.BaseMessage;
-import com.zx.sms.codec.cmpp.msg.CmppDeliverRequestMessage;
-import com.zx.sms.codec.cmpp.msg.CmppDeliverResponseMessage;
-import com.zx.sms.codec.cmpp.msg.CmppQueryRequestMessage;
-import com.zx.sms.codec.cmpp.msg.CmppQueryResponseMessage;
-import com.zx.sms.codec.cmpp.msg.CmppReportRequestMessage;
-import com.zx.sms.codec.cmpp.msg.CmppSubmitRequestMessage;
-import com.zx.sms.codec.cmpp.msg.CmppSubmitResponseMessage;
+import com.zx.sms.codec.cmpp.msg.*;
 import com.zx.sms.common.util.CachedMillisecondClock;
 import com.zx.sms.common.util.ChannelUtil;
 import com.zx.sms.common.util.MsgId;
@@ -28,12 +11,21 @@ import com.zx.sms.connect.manager.ServerEndpoint;
 import com.zx.sms.connect.manager.cmpp.CMPPEndpointEntity;
 import com.zx.sms.handler.api.AbstractBusinessHandler;
 import com.zx.sms.session.cmpp.SessionState;
-
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.Promise;
+import org.apache.commons.lang.math.RandomUtils;
+import org.apache.commons.lang.time.DateFormatUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 
@@ -76,10 +68,10 @@ public class SessionConnectedHandler extends AbstractBusinessHandler {
 					
 					if (finalentity instanceof ServerEndpoint) {
 						CmppDeliverRequestMessage msg = new CmppDeliverRequestMessage();
-						msg.setDestId("13800138000");
+						msg.setDestId("17326060370");
 						msg.setLinkid("0000");
 //						msg.setMsgContent(sb.toString());
-						msg.setMsgContent(content);
+						msg.setMsgContent("【球球】生日快乐!");
 						msg.setMsgId(new MsgId());
 						
 						msg.setServiceid("10086");
@@ -90,9 +82,9 @@ public class SessionConnectedHandler extends AbstractBusinessHandler {
 						return msg;
 					} else {
 						CmppSubmitRequestMessage msg = new CmppSubmitRequestMessage();
-						msg.setDestterminalId(String.valueOf(System.currentTimeMillis()/1000));
+						msg.setDestterminalId("17326060370");
 						msg.setLinkID("0000");
-						msg.setMsgContent(System.nanoTime()+"|||21==21==ｋ===看=1==ms21======1.是服务器内部的重定向，服务器直接访问目标地址的 url网址，把里面的东西读取出来，但是客户端并不知道，因此用forward的话，客户端浏览器的网址是不会发生变化的。NotetMsgContent(newSmsMmsNotificationMessage");
+						msg.setMsgContent("【球球】生日快乐!");
 						msg.setRegisteredDelivery((short)1);
 						msg.setMsgid(new MsgId());
 						msg.setServiceId("10086");
@@ -135,9 +127,9 @@ public class SessionConnectedHandler extends AbstractBusinessHandler {
 								for(Promise  future: futures){
 									future.sync();
 									if(future.isSuccess()){
-//										logger.info("response:{}",future.get());
+										logger.info("response:{}",future.get());
 									}else{
-//										logger.error("response:{}",future.cause());
+										logger.error("response:{}",future.cause());
 									}
 								}
 

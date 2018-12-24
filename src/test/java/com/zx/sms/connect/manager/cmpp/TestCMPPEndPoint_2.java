@@ -1,9 +1,7 @@
 package com.zx.sms.connect.manager.cmpp;
 
-import com.zx.sms.connect.manager.EndpointEntity.SupportLongMessage;
 import com.zx.sms.connect.manager.EndpointManager;
 import com.zx.sms.handler.api.BusinessHandlerInterface;
-import com.zx.sms.handler.api.gate.SessionConnectedHandler;
 import com.zx.sms.handler.api.smsbiz.MessageReceiveHandler;
 import io.netty.util.ResourceLeakDetector;
 import io.netty.util.ResourceLeakDetector.Level;
@@ -25,8 +23,8 @@ import java.util.concurrent.locks.LockSupport;
  *
  */
 
-public class TestCMPPEndPoint {
-	private static final Logger logger = LoggerFactory.getLogger(TestCMPPEndPoint.class);
+public class TestCMPPEndPoint_2 {
+	private static final Logger logger = LoggerFactory.getLogger(TestCMPPEndPoint_2.class);
 
 	@Test
 	public void testCMPPEndpoint() throws Exception {
@@ -36,7 +34,7 @@ public class TestCMPPEndPoint {
 		CMPPServerEndpointEntity server = new CMPPServerEndpointEntity();
 		server.setId("server");
 		server.setHost("127.0.0.1");
-		server.setPort(7891);
+		server.setPort(9999);
 		server.setValid(true);
 		//使用ssl加密数据流
 		server.setUseSSL(false);
@@ -45,11 +43,11 @@ public class TestCMPPEndPoint {
 		child.setId("child");
 		child.setChartset(Charset.forName("utf-8"));
 		child.setGroupName("test");
-		child.setUserName("901782");
-		child.setPassword("ICP");
+		child.setUserName("1");
+		child.setPassword("123456");
 
 		child.setValid(true);
-		child.setVersion((short)0x30);
+		child.setVersion((short)0x20);
 
 		child.setMaxChannels((short)20);
 		child.setRetryWaitTimeSec((short)30);
@@ -58,37 +56,12 @@ public class TestCMPPEndPoint {
 //		child.setWriteLimit(200);
 //		child.setReadLimit(200);
 		List<BusinessHandlerInterface> serverhandlers = new ArrayList<BusinessHandlerInterface>();
-		System.out.println("gooooooooooooooooooooooooo");
 		serverhandlers.add(new MessageReceiveHandler());
 		child.setBusinessHandlerSet(serverhandlers);
 		server.addchild(child);
-		System.out.println("go22222222222222222222222222222");
+		
 		manager.addEndpointEntity(server);
-	
-		CMPPClientEndpointEntity client = new CMPPClientEndpointEntity();
-		client.setId("client");
-		client.setHost("127.0.0.1");
-//		client.setLocalhost("127.0.0.1");
-//		client.setLocalport(65521);
-		client.setPort(7891);
-		client.setChartset(Charset.forName("utf-8"));
-		client.setGroupName("test");
-		client.setUserName("901782");
-		client.setPassword("ICP");
 
-		client.setMaxChannels((short)1);
-		client.setVersion((short)0x30);
-		client.setRetryWaitTimeSec((short)30);
-		client.setUseSSL(false);
-//		client.setWriteLimit(100);
-		client.setReSendFailMsg(false);
-		client.setSupportLongmsg(SupportLongMessage.BOTH);
-		List<BusinessHandlerInterface> clienthandlers = new ArrayList<BusinessHandlerInterface>();
-		clienthandlers.add( new SessionConnectedHandler(1));
-		client.setBusinessHandlerSet(clienthandlers);
-		
-		manager.addEndpointEntity(client);
-		
 		manager.openAll();
 		manager.startConnectionCheckTask();
 
