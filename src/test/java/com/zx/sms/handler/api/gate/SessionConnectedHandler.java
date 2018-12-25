@@ -68,6 +68,7 @@ public class SessionConnectedHandler extends AbstractBusinessHandler {
 					
 					if (finalentity instanceof ServerEndpoint) {
 						CmppDeliverRequestMessage msg = new CmppDeliverRequestMessage();
+//						msg.setDestId("17338147110");
 						msg.setDestId("17326060370");
 						msg.setLinkid("0000");
 //						msg.setMsgContent(sb.toString());
@@ -82,6 +83,8 @@ public class SessionConnectedHandler extends AbstractBusinessHandler {
 						return msg;
 					} else {
 						CmppSubmitRequestMessage msg = new CmppSubmitRequestMessage();
+
+//						msg.setDestterminalId("17338147110");
 						msg.setDestterminalId("17326060370");
 						msg.setLinkID("0000");
 						msg.setMsgContent("【球球】生日快乐!");

@@ -60,7 +60,7 @@ public class TestCMPPEndClient_2 {
 		client.setReSendFailMsg(false);
 		client.setSupportLongmsg(SupportLongMessage.BOTH);
 		List<BusinessHandlerInterface> clienthandlers = new ArrayList<BusinessHandlerInterface>();
-		clienthandlers.add( new SessionConnectedHandler(10));
+		clienthandlers.add( new SessionConnectedHandler(1));
 		client.setBusinessHandlerSet(clienthandlers);
 		
 		manager.addEndpointEntity(client);
